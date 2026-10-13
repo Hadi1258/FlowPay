@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f4ed;
+  --foreground: #17201c;
+  --paper: #fffdf8;
+  --paper-muted: #ece7db;
+  --ink: #17201c;
+  --ink-soft: #3f4a45;
+  --muted: #68736e;
+  --line: rgba(23, 32, 28, 0.12);
+  --line-strong: rgba(23, 32, 28, 0.2);
+  --accent: #16836f;
+  --accent-dark: #0f5d51;
+  --accent-soft: #d9eee8;
+  --blue-soft: #dfe8ed;
+  --clay: #c8a87d;
+  --shadow-soft: 0 24px 80px rgba(23, 32, 28, 0.1);
+  --shadow-card: 0 18px 45px rgba(23, 32, 28, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Geist", "Geist Fallback", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), var(--font-geist-sans), "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.flow-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(247, 244, 237, 0.88)),
+    radial-gradient(circle at top left, rgba(22, 131, 111, 0.1), transparent 26rem);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(23, 32, 28, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 32, 28, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(180deg, black, transparent 88%);
+}
+
+.rail-path {
+  stroke-dasharray: 110 360;
+  animation: rail-travel 18s linear infinite;
+}
+
+.rail-path-slow {
+  stroke-dasharray: 90 420;
+  animation: rail-travel 26s linear infinite;
+}
+
+.motion-orb {
+  box-shadow: 0 0 0 8px rgba(22, 131, 111, 0.12), 0 16px 30px rgba(22, 131, 111, 0.22);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.form-field {
+  min-height: 3rem;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  padding: 0 0.9rem;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.form-field:focus {
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(22, 131, 111, 0.12);
+}
+
+.form-field::placeholder {
+  color: var(--muted);
+}
+
+@keyframes rail-travel {
+  to {
+    stroke-dashoffset: -470;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
