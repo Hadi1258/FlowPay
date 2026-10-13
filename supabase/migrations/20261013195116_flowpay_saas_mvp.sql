@@ -90,6 +90,21 @@ alter table public.workflows enable row level security;
 alter table public.workflow_events enable row level security;
 alter table public.trial_leads enable row level security;
 
+-- New Supabase projects require explicit Data API grants. RLS policies below
+-- still decide which rows authenticated users may access.
+grant usage on schema public to authenticated, service_role;
+grant select, insert, update on public.profiles to authenticated;
+grant select, update on public.organizations to authenticated;
+grant select, update on public.organization_members to authenticated;
+grant select, insert, update on public.workflows to authenticated;
+grant select, insert on public.workflow_events to authenticated;
+grant select, insert, update, delete on public.profiles,
+  public.organizations,
+  public.organization_members,
+  public.workflows,
+  public.workflow_events,
+  public.trial_leads to service_role;
+
 create or replace function app_private.is_org_member(
   org_id uuid,
   allowed_roles public.organization_role[] default null
@@ -111,6 +126,7 @@ as $$
 $$;
 
 revoke all on function app_private.is_org_member(uuid, public.organization_role[]) from public;
+grant usage on schema app_private to authenticated;
 grant execute on function app_private.is_org_member(uuid, public.organization_role[]) to authenticated;
 
 create policy "Users can read own profile"

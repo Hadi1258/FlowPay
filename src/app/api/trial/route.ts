@@ -31,7 +31,20 @@ export async function POST(request: Request) {
     );
   }
 
-  const lead = await saveTrialLead(validation.payload);
+  let lead;
+
+  try {
+    lead = await saveTrialLead(validation.payload);
+  } catch {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "Trial requests are temporarily unavailable.",
+        errors: {},
+      },
+      { status: 503 },
+    );
+  }
 
   return NextResponse.json(
     {

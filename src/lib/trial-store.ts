@@ -15,7 +15,7 @@ export async function saveTrialLead(payload: TrialPayload): Promise<StoredTrialL
     source: "website",
   };
 
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
     const supabase = createAdminClient();
     const { error } = await supabase.from("trial_leads").insert({
       id: lead.id,

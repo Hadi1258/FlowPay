@@ -15,17 +15,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Supabase setup
 
 1. Create a Supabase project.
-2. Run the SQL in `supabase/migrations/20260707120000_flowpay_saas_mvp.sql` in the Supabase SQL editor, or apply it with the Supabase CLI.
+2. Apply the SQL files in `supabase/migrations` in timestamp order with the Supabase CLI. The FlowPay project in Hadi Org already has both migrations applied.
 3. Copy `.env.example` to `.env.local`.
 4. Fill:
 
 ```sh
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+SUPABASE_SECRET_KEY=
 ```
 
-The service role key is used only by server-side onboarding and public lead storage. Never expose it as a `NEXT_PUBLIC_` variable.
+The secret key is used only by server-side onboarding and public lead storage. Never expose it as a `NEXT_PUBLIC_` variable.
+Find it in the Supabase dashboard under **Project Settings → API Keys → Secret keys**. Keep `.env.local` out of Git.
 
 In Supabase Auth settings, add these redirect URLs for local development:
 
