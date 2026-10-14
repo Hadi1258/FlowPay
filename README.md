@@ -72,8 +72,14 @@ git add .
 git commit -m "Build FlowPay SaaS MVP"
 ```
 
-## Deploy on Vercel
+## Deploy the full app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use a host that runs Next.js server routes and actions. Configure these environment variables in that host:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```sh
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SECRET_KEY=
+```
+
+Keep `SUPABASE_SECRET_KEY` server-only. Add the deployed site's `/auth/callback` URL to Supabase Auth redirect URLs and set the Auth site URL to the deployed origin. The GitHub workflow checks lint and build; it does not deploy.
