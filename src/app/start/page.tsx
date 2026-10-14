@@ -1,5 +1,5 @@
 import { PageHero } from "@/components/page-hero";
-import { resetPassword, signIn, signUp } from "@/app/auth/actions";
+import { resetPassword, signIn, signUp, updatePassword } from "@/app/auth/actions";
 
 export default async function StartPage({
   searchParams,
@@ -7,7 +7,9 @@ export default async function StartPage({
   searchParams: Promise<{ error?: string; message?: string; mode?: string }>;
 }) {
   const params = await searchParams;
-  const mode = params.mode === "signin" || params.mode === "reset" ? params.mode : "signup";
+  const mode = params.mode === "signin" || params.mode === "reset" || params.mode === "update"
+    ? params.mode
+    : "signup";
 
   return (
     <>
@@ -59,6 +61,7 @@ export default async function StartPage({
           {mode === "signup" ? <AuthForm action={signUp} submitLabel="Create account" withName /> : null}
           {mode === "signin" ? <AuthForm action={signIn} submitLabel="Sign in" /> : null}
           {mode === "reset" ? <ResetForm /> : null}
+          {mode === "update" ? <UpdatePasswordForm /> : null}
 
           {params.error ? (
             <p className="mt-4 text-sm font-medium text-red-700">{params.error}</p>
@@ -121,6 +124,23 @@ function ResetForm() {
         type="submit"
       >
         Send reset link
+      </button>
+    </form>
+  );
+}
+
+function UpdatePasswordForm() {
+  return (
+    <form action={updatePassword} className="mt-6 grid gap-4">
+      <label className="grid gap-2">
+        <span className="text-sm font-semibold text-[var(--ink)]">New password</span>
+        <input className="form-field" minLength={8} name="password" required type="password" />
+      </label>
+      <button
+        className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)]"
+        type="submit"
+      >
+        Update password
       </button>
     </form>
   );
